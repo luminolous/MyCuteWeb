@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lumy • Projects</title>
+  <meta name="description" content="Projects portfolio with filter & sort." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=M+PLUS+Rounded+1c:wght@400;500;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="./assets/css/styles.css" />
+</head>
+
+<body class="page">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="./index.html" data-nav>
+        <!-- <span class="brand-dot" aria-hidden="true"></span> -->
+        <span class="brand-text">Wippie</span>
+      </a>
+
+      <nav class="nav">
+        <a class="nav-link" href="./index.html" data-nav>Home</a>
+        <a class="nav-link" href="./projects.html" data-nav>Projects</a>
+        <a class="nav-link" href="./articles.html" data-nav>Articles</a>
+        <a class="nav-link" href="./about.html" data-nav>About</a>
+        <!-- <a class="nav-link nav-link-ghost" href="https://github.com/your-username" target="_blank" rel="noreferrer">
+          Repo <span class="ext" aria-hidden="true">↗</span>
+        </a> -->
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <section class="page-head">
+      <p class="kicker">PROJECTS</p>
+      <h1 class="page-title">Things I built ✦</h1>
+      <p class="page-subtitle">
+        Filter by type, sort by date or alphabet, and check the featured ones.
+      </p>
+    </section>
+
+    <!-- Controls -->
+    <section class="controls">
+      <div class="chips" role="tablist" aria-label="Filter projects by type" id="projectFilters"></div>
+
+      <div class="sort">
+        <span class="sort-label">Sort</span>
+
+        <div class="dd" id="sortDD" data-value="date_desc">
+            <button
+            class="dd-btn"
+            type="button"
+            aria-haspopup="listbox"
+            aria-expanded="false"
+            aria-controls="sortList"
+            >
+            <span class="dd-btn-text">Date: newest</span>
+            <span class="dd-caret" aria-hidden="true">▾</span>
+            </button>
+
+            <div class="dd-pop" id="sortList" role="listbox" tabindex="-1" hidden>
+            <button class="dd-item" type="button" role="option" aria-selected="true" data-value="date_desc">
+                Date: newest
+            </button>
+            <button class="dd-item" type="button" role="option" aria-selected="false" data-value="date_asc">
+                Date: oldest
+            </button>
+            <button class="dd-item" type="button" role="option" aria-selected="false" data-value="az">
+                Alphabet: A → Z
+            </button>
+            <button class="dd-item" type="button" role="option" aria-selected="false" data-value="za">
+                Alphabet: Z → A
+            </button>
+            </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured -->
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-title">Featured Projects</h2>
+        <p class="section-desc">A few highlighted works.</p>
+      </div>
+
+      <div id="featuredProjects" class="featured-grid" aria-live="polite"></div>
+    </section>
+
+    <section class="divider"></section>
+
+    <!-- List -->
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-title">All Projects</h2>
+        <p class="section-desc">News-like layout (wide, clean, clickable).</p>
+      </div>
+
+      <div id="projectList" class="list" aria-live="polite"></div>
+    </section>
+
+    <footer class="footer">
+      <p>© <span id="year"></span> luminous. All rights reserved.</p>
+    </footer>
+  </main>
+
+  <script src="./assets/js/data.js"></script>
+  <script src="./assets/js/main.js"></script>
+</body>
+</html>
