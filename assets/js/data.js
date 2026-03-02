@@ -212,7 +212,7 @@ const projects = [
     description: "Attempting to implement the X-LoRA architecture in a Bilingual (English-Indonesian) task. The datasets used were CendolCollectionv2 for Indonesian and OpenOrca for English, both of which were pre-sampled to maximize results and save computation. Evaluation was conducted using BLEU, ROUGE-1, ROUGE-2, and ROUGE-L metrics.",
     type: "Model Experiment",
     tags: ["LLMs", "PEFT", "X-LoRA", "Cross Lingual"],
-    featured: false,
+    featured: true,
     date: "2025-12",
     image: "./assets/img/project-3.jpg",
     links: [
@@ -243,33 +243,59 @@ const projects = [
     date: "2026-01",
     image: "./assets/img/project-3.jpg",
     links: [
-      { label: "Installation", kind: "github", url: "https://github.com/luminolous/frameko" }
+      { label: "Demo", kind: "huggingface", url: "https://huggingface.co/spaces/lumicero/FGVC-Nakano-Quintuplets" }
     ]
   },
   {
-    id: "frameko",
-    title: "Frameko",
-    description: "Python toolkit to convert video (animation or else) into multiple frames and collect them into an image dataset. This tool is can be used to add more data or collect a dataset that will be used to train a model.",
-    type: "Tools & Framework",
-    tags: ["Video Processing", "Scraping", "Image Collector"],
-    featured: false,
-    date: "2026-01",
+    id: "frieren-diffusion-lora",
+    title: "Waifu-Diffusion PEFT (LoRA) in Frieren Image Dataset",
+    description: "In this project, I fine-tune a lightweight LoRA adapter for the Waifu Diffusion text-to-image model (hakurei/waifu-diffusion) using the CyberHarem Frieren dataset, converts the dataset’s image-tag information into captions for training, trains the adapter with Diffusers’ train_text_to_image_lora.py workflow, exports the result as a compact pytorch_lora_weights.safetensors, and uploads it to the Hugging Face Hub so you can later attach it back to the base model with load_lora_weights() for inference.",
+    type: "Model Experiment",
+    tags: ["Image Generation", "Waifu Diffusion", "Anime Image", "PEFT"],
+    featured: true,
+    date: "2026-02",
     image: "./assets/img/project-3.jpg",
     links: [
-      { label: "Installation", kind: "github", url: "https://github.com/luminolous/frameko" }
+      { label: "Model", kind: "huggingface", url: "https://huggingface.co/lumicero/frieren-waifu-diffusion-lora" }
     ]
   },
   {
-    id: "frameko",
-    title: "Frameko",
-    description: "Python toolkit to convert video (animation or else) into multiple frames and collect them into an image dataset. This tool is can be used to add more data or collect a dataset that will be used to train a model.",
-    type: "Tools & Framework",
-    tags: ["Video Processing", "Scraping", "Image Collector"],
+    id: "frieren-dreambooth-lora",
+    title: "Waifu-Diffusion PEFT (LoRA) using Dreambooth in Frieren Image Dataset",
+    description: "In this project, I fine-tune waifu-diffusion model using DreamBooth with a lightweight LoRA adapter to learn Frieren’s identity. The notebook downloads and prepares the CyberHarem/frieren_sousounofrieren dataset, including the stage3-p480-1200 package with 1058 cropped IMG+TXT samples.　Training is run with the official Diffusers train_dreambooth_lora.py script and supports options like prior preservation, mixed precision, checkpointing and others. Finally, it loads the saved LoRA weights via load_lora_weights() to generate validation images and compare base vs LoRA outputs during inference.",
+    type: "Model Experiment",
+    tags: ["Image Generation", "Dreambooth", "Waifu Diffusion", "PEFT"],
     featured: false,
-    date: "2026-01",
+    date: "2026-02",
     image: "./assets/img/project-3.jpg",
     links: [
-      { label: "Installation", kind: "github", url: "https://github.com/luminolous/frameko" }
+      { label: "Model", kind: "huggingface", url: "https://huggingface.co/lumicero/frieren-waifu-diffusion-lora-db" }
+    ]
+  },
+  {
+    id: "waifu-diffusion-lora-demo",
+    title: "HF Space for Waifu Diffusion LoRA Live Demonstration",
+    description: "",
+    type: "Web App",
+    tags: ["Gradio", "Hugging Face Space", "Model Demo"],
+    featured: false,
+    date: "2026-02",
+    image: "./assets/img/project-3.jpg",
+    links: [
+      { label: "Demo", kind: "huggingface", url: "https://huggingface.co/spaces/lumicero/waifu-diffusion-lora-demo" }
+    ]
+  },
+  {
+    id: "frieren-dreambooth-lora",
+    title: "HF Space for Waifu Diffusion Dreambooth LoRA Live Demonstration",
+    description: "",
+    type: "Web App",
+    tags: ["Gradio", "Python", "Model Demo", "Hugging Face Space"],
+    featured: false,
+    date: "2026-02",
+    image: "./assets/img/project-3.jpg",
+    links: [
+      { label: "Demo", kind: "huggingface", url: "https://huggingface.co/spaces/lumicero/waifu-diffusion-lora-db-demo" }
     ]
   },
 ];

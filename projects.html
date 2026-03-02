@@ -46,39 +46,42 @@
 
     <!-- Controls -->
     <section class="controls">
-      <div class="chips" role="tablist" aria-label="Filter projects by type" id="projectFilters"></div>
+        <div class="controls-left">
+            <label class="sr-only" for="projectSearch">Search projects</label>
+            <input
+            id="projectSearch"
+            class="search-input"
+            type="search"
+            placeholder="Search projects..."
+            autocomplete="off"
+            />
 
-      <div class="sort">
-        <span class="sort-label">Sort</span>
+            <div class="chips" role="tablist" aria-label="Filter projects by type" id="projectFilters"></div>
+        </div>
 
-        <div class="dd" id="sortDD" data-value="date_desc">
-            <button
-            class="dd-btn"
-            type="button"
-            aria-haspopup="listbox"
-            aria-expanded="false"
-            aria-controls="sortList"
-            >
-            <span class="dd-btn-text">Newest</span>
-            <span class="dd-caret" aria-hidden="true">▾</span>
-            </button>
+        <div class="sort">
+            <span class="sort-label">Sort</span>
 
-            <div class="dd-pop" id="sortList" role="listbox" tabindex="-1" hidden>
-            <button class="dd-item" type="button" role="option" aria-selected="true" data-value="date_desc">
-                Newest
-            </button>
-            <button class="dd-item" type="button" role="option" aria-selected="false" data-value="date_asc">
-                Oldest
-            </button>
-            <button class="dd-item" type="button" role="option" aria-selected="false" data-value="az">
-                A → Z
-            </button>
-            <button class="dd-item" type="button" role="option" aria-selected="false" data-value="za">
-                Z → A
-            </button>
+            <div class="dd" id="sortDD" data-value="date_desc">
+                <button
+                    class="dd-btn"
+                    type="button"
+                    aria-haspopup="listbox"
+                    aria-expanded="false"
+                    aria-controls="sortList"
+                >
+                    <span class="dd-btn-text">Newest</span>
+                    <span class="dd-caret" aria-hidden="true">▾</span>
+                </button>
+
+                <div class="dd-pop" id="sortList" role="listbox" tabindex="-1" hidden>
+                    <button class="dd-item" type="button" role="option" aria-selected="true" data-value="date_desc">Newest</button>
+                    <button class="dd-item" type="button" role="option" aria-selected="false" data-value="date_asc">Oldest</button>
+                    <button class="dd-item" type="button" role="option" aria-selected="false" data-value="az">A → Z</button>
+                    <button class="dd-item" type="button" role="option" aria-selected="false" data-value="za">Z → A</button>
+                </div>
             </div>
         </div>
-      </div>
     </section>
 
     <!-- Featured -->
@@ -100,7 +103,7 @@
         <!-- <p class="section-desc">News-like layout (wide, clean, clickable).</p> -->
       </div>
 
-      <div id="projectList" class="list" aria-live="polite"></div>
+      <div id="projectList" class="list list--centered" aria-live="polite"></div>
     </section>
 
     <footer class="footer">

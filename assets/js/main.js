@@ -196,7 +196,8 @@
 
     wrap.innerHTML = projectTypes.map((t, idx) => `
       <button class="chip ${idx === 0 ? "is-active" : ""}" type="button" data-type="${escapeHtml(t)}" role="tab">
-        ${escapeHtml(t)}
+        <span class="chip-text">${escapeHtml(t)}</span>
+        <span class="chip-count" aria-hidden="true">0</span>
       </button>
     `).join("");
 
@@ -205,13 +206,48 @@
       if (!btn) return;
       $$(".chip", wrap).forEach((x) => x.classList.remove("is-active"));
       btn.classList.add("is-active");
-      renderProjectsList();
+      applyProjectsUI();
     });
+
+    updateProjectFilterCounts();
   }
 
   function getProjectFilterValue() {
     const active = $("#projectFilters .chip.is-active");
     return active ? active.getAttribute("data-type") : "All";
+  }
+
+  function getProjectSearchValue() {
+    const el = $("#projectSearch");
+    return el ? String(el.value || "").trim().toLowerCase() : "";
+  }
+
+  function projectMatchesSearch(p, q) {
+    if (!q) return true;
+    const hay = [
+      p.title || "",
+      p.description || "",
+      p.type || "",
+      ...(p.tags || [])
+    ].join(" ").toLowerCase();
+    return hay.includes(q);
+  }
+
+  function updateProjectFilterCounts() {
+    const q = getProjectSearchValue();
+    const base = projects.filter((p) => projectMatchesSearch(p, q));
+
+    $$("#projectFilters .chip").forEach((chip) => {
+      const t = chip.getAttribute("data-type") || "All";
+      const n = (t === "All") ? base.length : base.filter((p) => p.type === t).length;
+      const el = chip.querySelector(".chip-count");
+      if (el) el.textContent = String(n);
+    });
+  }
+
+  function applyProjectsUI() {
+    updateProjectFilterCounts();
+    renderProjectsList();
   }
 
   function getProjectSortValue() {
@@ -259,38 +295,38 @@
 
     const filter = getProjectFilterValue();
     const sortMode = getProjectSortValue();
+    const q = getProjectSearchValue();
 
-    let list = [...projects];
+    let list = projects.filter((p) => projectMatchesSearch(p, q));
     if (filter && filter !== "All") list = list.filter((p) => p.type === filter);
     list = sortProjects(list, sortMode);
 
     swapWithMotion(wrap, () => {
+      if (!list.length) {
+        return `<div class="empty-state">No projects found. Try a different keyword or filter.</div>`;
+      }
+
       return list.map((p) => {
         const tags = (p.tags || []).map((t) => `<span class="tag">${escapeHtml(t)}</span>`).join("");
         const links = (p.links || []).map((l) => renderLinkChip(l)).join("");
 
-        const media = p.image
-          ? `<img src="${escapeHtml(p.image)}" alt="Preview for ${escapeHtml(p.title)}">`
-          : "";
-
         return `
-          <article class="row" id="${escapeHtml(p.id)}">
-            <div class="row-media">${media}</div>
-
+          <article class="row row--no-media row--compact" id="${escapeHtml(p.id)}">
             <div class="row-main">
-              <div class="row-top">
-                <h3 class="row-title">
-                  ${p.featured ? icon("star") : ""}
-                  <a class="link" href="${escapeHtml((p.links?.[0]?.url) || "#")}" target="_blank" rel="noreferrer">
-                    ${escapeHtml(p.title)}
-                  </a>
-                </h3>
-                <span class="row-date">${escapeHtml(fmtMonthYear(p.date))}</span>
-              </div>
+              <h3 class="row-title">
+                ${p.featured ? icon("star") : ""}
+                <a class="link" href="${escapeHtml((p.links?.[0]?.url) || "#")}" target="_blank" rel="noreferrer">
+                  ${escapeHtml(p.title)}
+                </a>
+              </h3>
 
               <p class="row-desc">${escapeHtml(p.description)}</p>
               <div class="tags">${tags}</div>
               <div class="links" aria-label="Project links">${links}</div>
+
+              <div class="row-foot">
+                <span class="row-date--plain">${escapeHtml(fmtMonthYear(p.date))}</span>
+              </div>
             </div>
           </article>
         `;
@@ -303,12 +339,15 @@
 
     renderProjectFilters();
     renderFeaturedProjects();
-    setupSortDropdown();      // <-- baru
-    renderProjectsList();
+    setupSortDropdown();
+    applyProjectsUI();
 
-    // fallback kalau masih ada <select> di versi lain
-    const sortSel = $("#projectSort");
-    if (sortSel) sortSel.addEventListener("change", renderProjectsList);
+    const search = $("#projectSearch");
+    if (search) {
+      search.addEventListener("input", () => {
+        applyProjectsUI();
+      });
+    }
   }
 
   function setupSortDropdown() {
