@@ -16,6 +16,60 @@
     return d.toLocaleString(undefined, { month: "short", year: "numeric" });
   }
 
+  const SIMPLE_ICONS_VERSION = "16.10.0";
+  const SIMPLE_ICONS_BASE = `https://cdn.jsdelivr.net/npm/simple-icons@${SIMPLE_ICONS_VERSION}/icons/`;
+
+  const BRAND_SLUG_BY_KIND = {
+    github: "github",
+    kaggle: "kaggle",
+    huggingface: "huggingface",
+    linkedin: "linkedin",
+    medium: "medium",
+    youtube: "youtube",
+  };
+
+  function brandSlugFromUrl(url) {
+    try {
+      const host = new URL(url, window.location.href)
+        .hostname.replace(/^www\./, "")
+        .toLowerCase();
+
+      if (host.includes("github.com")) return "github";
+      if (host.includes("huggingface.co")) return "huggingface";
+      if (host.includes("kaggle.com")) return "kaggle";
+      if (host.includes("linkedin.com")) return "linkedin";
+      if (host.includes("medium.com")) return "medium";
+      if (host.includes("youtube.com") || host.includes("youtu.be")) return "youtube";
+    } catch (e) {}
+    return null;
+  }
+
+  function brandIconImg(slug) {
+    const safe = escapeHtml(slug);
+    return `<img src="${SIMPLE_ICONS_BASE}${safe}.svg" alt="" aria-hidden="true" loading="lazy">`;
+  }
+
+  function renderLinkChip(linkObj) {
+    const label = linkObj?.label || "Link";
+    const url = linkObj?.url || "#";
+
+    const kind = String(linkObj?.kind || "").toLowerCase();
+    const slug = BRAND_SLUG_BY_KIND[kind] || brandSlugFromUrl(url);
+
+    const innerIcon = slug ? brandIconImg(slug) : icon(kind || "globe");
+
+    return `
+      <a class="link-pill link-pill--brand"
+         href="${escapeHtml(url)}"
+         target="_blank" rel="noopener noreferrer"
+         aria-label="${escapeHtml(label)}"
+         title="${escapeHtml(label)}">
+        <span class="brand-ico" aria-hidden="true">${innerIcon}</span>
+        <span class="brand-label">${escapeHtml(label)}</span>
+      </a>
+    `;
+  }
+
   function escapeHtml(str) {
     return String(str).replace(/[&<>"']/g, (ch) => ({
       "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
@@ -213,11 +267,7 @@
     swapWithMotion(wrap, () => {
       return list.map((p) => {
         const tags = (p.tags || []).map((t) => `<span class="tag">${escapeHtml(t)}</span>`).join("");
-        const links = (p.links || []).map((l) => `
-          <a class="link-pill" href="${escapeHtml(l.url)}" target="_blank" rel="noreferrer">
-            ${icon(l.kind)} <span>${escapeHtml(l.label)}</span>
-          </a>
-        `).join("");
+        const links = (p.links || []).map((l) => renderLinkChip(l)).join("");
 
         const media = p.image
           ? `<img src="${escapeHtml(p.image)}" alt="Preview for ${escapeHtml(p.title)}">`
@@ -240,7 +290,7 @@
 
               <p class="row-desc">${escapeHtml(p.description)}</p>
               <div class="tags">${tags}</div>
-              <div class="links">${links}</div>
+              <div class="links" aria-label="Project links">${links}</div>
             </div>
           </article>
         `;

@@ -100,8 +100,9 @@ img{ max-width: 100%; display: block; }
   position: sticky;
   top: 0;
   z-index: 50;
+  -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);
-  background: rgba(255,255,255,.72);
+  background: rgba(255,255,255,.48); /* lebih transparan */
   border-bottom: 1px solid rgba(45, 140, 255, .10);
 }
 
@@ -484,6 +485,21 @@ img{ max-width: 100%; display: block; }
   background: rgba(230, 246, 255, .95);
   color: rgba(11,18,32,.90);
 }
+/* Icon-only chips (GitHub / HuggingFace / Kaggle / dll) */
+.chip--icon{
+  width: 44px;
+  height: 44px;
+  padding: 0;
+}
+.chip--icon img,
+.chip--icon svg{
+  width: 18px;
+  height: 18px;
+  display: block;
+  opacity: .88;
+}
+.chip--icon:hover img,
+.chip--icon:hover svg{ opacity: 1; }
 
 .sort{
   display: flex;
@@ -645,6 +661,7 @@ img{ max-width: 100%; display: block; }
   align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
+  margin-bottom: 2px;
 }
 
 .row-date{
@@ -674,7 +691,7 @@ img{ max-width: 100%; display: block; }
   display: flex;
   align-items: center;
   gap: 8px;
-  line-height: 1.25;
+  line-height: 1.15;
 }
 .star{
   width: 18px;
@@ -682,12 +699,12 @@ img{ max-width: 100%; display: block; }
   display: inline-block;
 }
 .row-desc{
-  margin: 7px 0 0;
+  margin: 0;
   color: var(--muted);
   line-height: 1.55;
 }
 .tags{
-  margin-top: 10px;
+  margin-top: 6px;
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
@@ -703,7 +720,7 @@ img{ max-width: 100%; display: block; }
 }
 
 .links{
-  margin-top: 10px;
+  margin-top: 6px;
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
@@ -901,6 +918,26 @@ img{ max-width: 100%; display: block; }
   opacity: 0;
   transform: translateY(8px);
   filter: blur(2px);
+}
+
+.link-pill--brand{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.link-pill--brand .brand-ico{
+  width: 18px;
+  height: 18px;
+  display: grid;
+  place-items: center;
+}
+
+.link-pill--brand .brand-ico img,
+.link-pill--brand .brand-ico svg{
+  width: 18px;
+  height: 18px;
+  display: block;
 }
 
 /* prefers-reduced-motion is recommended for accessibility */
