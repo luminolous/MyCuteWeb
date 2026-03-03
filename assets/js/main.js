@@ -334,7 +334,7 @@
     });
   }
 
-  function setupProjectsPage() {
+function setupProjectsPage() {
     if (!$("#projectList")) return;
 
     renderProjectFilters();

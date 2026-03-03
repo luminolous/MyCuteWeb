@@ -615,6 +615,39 @@ img{ max-width: 100%; display: block; }
   gap: 12px;
 }
 
+.featured-grid .card{
+  height: clamp(150px, 16vw, 180px);
+  display: flex;
+  flex-direction: column;
+}
+
+/* judul juga bisa dibatasi biar rapi */
+.featured-grid .card-title{
+  overflow: hidden;
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+
+  line-clamp: 2;
+}
+
+/* deskripsi dipotong, ditutup ellipsis */
+.featured-grid .card-desc{
+  overflow: hidden;
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+
+  line-clamp: 3;
+}
+
+/* meta (pill + tanggal) tetap nempel bawah */
+.featured-grid .card-meta{
+  margin-top: auto;
+}
+
 /* -----------------------------
    List rows (Projects / Articles)
 ------------------------------ */
