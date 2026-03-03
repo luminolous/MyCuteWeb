@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Lumy's Portfolio</title>
+  <title>luminolous</title>
   <meta name="description" content="Portfolio: Projects, Articles, About." />
 
   <!-- Fonts (cheerful + rounded) -->
@@ -14,24 +14,28 @@
   <!-- refs: Google Fonts docs + best practices -->
   <!-- :contentReference[oaicite:2]{index=2} -->
 
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="48x48" href="./assets/img/profile.jpg">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
   <link rel="stylesheet" href="./assets/css/styles.css" />
 </head>
 
-<body class="page">
+<body class="page page-home">
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="topbar">
     <div class="container topbar-inner">
-      <a class="brand" href="./index.html" data-nav>
+      <a class="brand" href="./" data-nav>
         <!-- <span class="brand-dot" aria-hidden="true"></span> -->
         <span class="brand-text">luminolous</span>
       </a>
 
       <nav class="nav">
-        <a class="nav-link" href="./index.html" data-nav>Home</a>
-        <a class="nav-link" href="./projects.html" data-nav>Projects</a>
-        <a class="nav-link" href="./articles.html" data-nav>Articles</a>
-        <a class="nav-link" href="./about.html" data-nav>About</a>
+        <a class="nav-link" href="./" data-nav>Home</a>
+        <a class="nav-link" href="./projects/" data-nav>Projects</a>
+        <a class="nav-link" href="./articles/" data-nav>Articles</a>
+        <a class="nav-link" href="./about/" data-nav>About</a>
         <!-- <a class="nav-link nav-link-ghost" href="https://github.com/your-username" target="_blank" rel="noreferrer">
           Repo
           <span class="ext" aria-hidden="true">↗</span>
@@ -44,47 +48,47 @@
     <!-- Hero -->
     <section class="hero">
       <div class="hero-left">
-        <p class="kicker">HOME</p>
-        <h1 class="hero-title">こんにちは✨</h1>
+        <!-- <p class="kicker">HOME</p> -->
+        <h1 class="hero-title">
+            こんにちは<span class="sparkle" aria-hidden="true">✨</span>
+        </h1>
         <p class="hero-subtitle">
-          Welcome! I’m <b>Lumy</b> — an AI researcher & developer who loves building
-          generative models, cute tools, and helpful demos.
+          I’m <b>Lumy</b> — an AI Engineering Student & Research Enthusiast who Interested in Generative Models Ი𐑼
         </p>
 
         <div class="hero-actions">
-          <a class="btn btn-primary" href="./projects.html" data-nav>See Projects</a>
-          <a class="btn btn-soft" href="./about.html" data-nav>About Me</a>
+          <a class="btn btn-primary" href="./projects/" data-nav>Projects</a>
+          <a class="btn btn-primary" href="./articles/" data-nav>Articles</a>
+          <a class="btn btn-soft" href="./about/" data-nav>About Me</a>
         </div>
 
         <div class="hero-badges">
           <span class="badge">GenAI</span>
-          <span class="badge">LLM</span>
           <span class="badge">Diffusion</span>
+          <span class="badge">LLM</span>
           <span class="badge">Tooling</span>
         </div>
       </div>
 
       <div class="hero-right">
         <div class="avatar-wrap" aria-label="Profile photo">
-          <!-- Ganti avatar.jpg dengan foto kamu -->
-          <img class="avatar" src="./assets/img/avatar.jpg" alt="Photo of Lumy" />
+          <img class="avatar" src="./assets/img/profile.jpg" alt="Photo of Lumy" />
           <div class="avatar-ring" aria-hidden="true"></div>
           <div class="avatar-sparkle" aria-hidden="true"></div>
         </div>
       </div>
     </section>
 
-    <section class="divider"></section>
+    <!-- <section class="divider"></section> -->
 
     <!-- Overview -->
-    <section class="section">
+    <!-- <section class="section">
     <div class="section-head">
         <h2 class="section-title">Overview Projects & Articles</h2>
         <p class="section-desc">A quick peek.</p>
     </div>
 
     <div class="overview-stack">
-        <!-- Projects preview (max 3) -->
         <div class="panel">
         <div class="panel-head">
             <h3 class="panel-title">Projects</h3>
@@ -95,7 +99,6 @@
         <div id="homeProjects" class="cards-grid cards-grid-1" aria-live="polite"></div>
         </div>
 
-        <!-- Articles preview (max 1) -->
         <div class="panel">
         <div class="panel-head">
             <h3 class="panel-title">Articles</h3>
@@ -106,10 +109,10 @@
         <div id="homeArticles" class="cards-grid cards-grid-1" aria-live="polite"></div>
         </div>
     </div>
-    </section>
+    </section> -->
 
     <footer class="footer">
-      <p>© <span id="year"></span> luminous. All rights reserved.</p>
+      <p>© <span id="year"></span> luminolous. All rights reserved.</p>
     </footer>
   </main>
 

@@ -140,11 +140,36 @@
     });
   }
 
+  function navKey(pathname){
+  // buang trailing slash biar "/projects/" jadi "/projects"
+    const clean = pathname.replace(/\/+$/, "");
+
+    // pecah segmen path (tanpa yang kosong)
+    const parts = clean.split("/").filter(Boolean);
+
+    // home: "/" atau "/index.html"
+    if (parts.length === 0) return "index";
+
+    let last = parts[parts.length - 1];
+
+    // kalau bentuknya "/projects/index.html" → key = "projects"
+    if (last === "index.html") last = parts[parts.length - 2] || "index";
+
+    // support lama: "projects.html" → "projects"
+    last = last.replace(/\.html$/, "");
+
+    return last;
+  }
+
   function setupActiveNav() {
-    const path = window.location.pathname.split("/").pop() || "index.html";
+    const current = navKey(window.location.pathname);
+
     $$(".nav-link[data-nav]").forEach((a) => {
-      const aPath = new URL(a.href, window.location.href).pathname.split("/").pop() || "index.html";
-      a.classList.toggle("is-active", aPath === path);
+        // new URL(a.href, base) untuk dapat pathname absolut dari href relatif
+        const aPath = new URL(a.href, window.location.href).pathname;
+        const target = navKey(aPath);
+
+        a.classList.toggle("is-active", target === current);
     });
   }
 
@@ -322,9 +347,9 @@
 
               <p class="row-desc">${escapeHtml(p.description)}</p>
               <div class="tags">${tags}</div>
-              <div class="links" aria-label="Project links">${links}</div>
 
               <div class="row-foot">
+                <div class="links links--foot" aria-label="Project links">${links}</div>
                 <span class="row-date--plain">${escapeHtml(fmtMonthYear(p.date))}</span>
               </div>
             </div>

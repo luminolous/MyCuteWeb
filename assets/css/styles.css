@@ -291,6 +291,44 @@ img{ max-width: 100%; display: block; }
   line-height: 1.55;
 }
 
+/* =============================
+   HOME only: hero bigger + centered
+============================= */
+.page-home #main{
+  /* biar konten bisa “ketengah” secara vertikal */
+  min-height: calc(100vh - 64px);
+  min-height: calc(100svh - 64px); /* fallback modern mobile */
+  display: flex;
+  flex-direction: column;
+}
+
+.page-home .hero{
+  flex: 1;
+  padding: 0;                 /* override padding hero default */
+  align-content: center;      /* center isi grid secara vertikal */
+  gap: 36px;
+}
+
+/* besarkan elemen hero */
+.page-home .hero-title{
+  font-size: clamp(42px, 5vw, 64px);
+}
+
+.page-home .hero-subtitle{
+  font-size: 18px;
+  line-height: 1.7;
+  max-width: 62ch;
+}
+
+.page-home .avatar-wrap{
+  width: min(300px, 62vw);
+}
+
+/* footer tetap di bawah */
+.page-home .footer{
+  margin-top: auto;
+}
+
 /* -----------------------------
    Sections / Panels
 ------------------------------ */
@@ -1055,11 +1093,19 @@ img{ max-width: 100%; display: block; }
 
 /* date: plain text at bottom-right */
 .row-foot{
-  display:flex;
-  justify-content:flex-end;
+  display: flex;
+  align-items: center;          /* sejajarkan tinggi icon & teks */
+  gap: 12px;
+  flex-wrap: wrap;              /* aman kalau layar kecil */
   margin-top: 8px;
 }
+
+.row-foot .links{
+  margin-top: 0;                /* override, karena links sekarang di foot */
+}
+
 .row-date--plain{
+  margin-left: auto;            /* dorong tanggal ke kanan */
   font-weight: 900;
   font-size: 12px;
   color: rgba(11,18,32,.55);
@@ -1074,6 +1120,75 @@ img{ max-width: 100%; display: block; }
   color: rgba(11,18,32,.62);
   font-weight: 800;
   text-align: center;
+}
+
+/* =============================
+   HOME: cute intro animations
+   (only on homepage)
+============================= */
+@media (prefers-reduced-motion: no-preference){
+
+  /* Stagger masuknya elemen kiri (kicker, title, subtitle, buttons, badges) */
+  .page-home .hero-left > *{
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  .page-home.is-ready .hero-left > *{
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 520ms var(--ease), transform 520ms var(--ease);
+  }
+  .page-home.is-ready .hero-left > :nth-child(1){ transition-delay: 60ms; }  /* HOME */
+  .page-home.is-ready .hero-left > :nth-child(2){ transition-delay: 120ms; } /* title */
+  .page-home.is-ready .hero-left > :nth-child(3){ transition-delay: 180ms; } /* subtitle */
+  .page-home.is-ready .hero-left > :nth-child(4){ transition-delay: 240ms; } /* actions */
+  .page-home.is-ready .hero-left > :nth-child(5){ transition-delay: 300ms; } /* badges */
+
+  /* Title pop (tambahan animasi khusus teks besar) */
+  .page-home .hero-title{
+    transform-origin: left bottom;
+  }
+  .page-home.is-ready .hero-title{
+    animation: homeTitlePop 720ms var(--ease) 80ms both;
+  }
+
+  @keyframes homeTitlePop{
+    0%   { transform: translateY(8px) scale(.96); opacity: 0; }
+    60%  { transform: translateY(0) scale(1.05); opacity: 1; }
+    100% { transform: translateY(0) scale(1); }
+  }
+
+  /* Sparkle twinkle (emoji ✨) */
+  .page-home .hero-title .sparkle{
+    display: inline-block;
+    margin-left: .12em;
+    transform-origin: 50% 50%;
+  }
+  .page-home.is-ready .hero-title .sparkle{
+    animation: sparkleTwinkle 900ms ease-in-out 320ms 3 both;
+  }
+
+  @keyframes sparkleTwinkle{
+    0%,100% { transform: rotate(0deg) scale(1); filter: drop-shadow(0 0 0 rgba(45,140,255,0)); }
+    50%     { transform: rotate(12deg) scale(1.25); filter: drop-shadow(0 12px 18px rgba(45,140,255,.25)); }
+  }
+
+  /* Avatar muncul lembut (biar sinkron sama is-ready, bukan langsung) */
+  .page-home .avatar-wrap{
+    opacity: 0;
+    transform: translateY(10px) scale(.96);
+  }
+  .page-home.is-ready .avatar-wrap{
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    transition: opacity 560ms var(--ease) 260ms, transform 560ms var(--ease) 260ms;
+  }
+
+  /* Override anim avatar yang sebelumnya auto-jalan */
+  .page-home .avatar{ animation: none; }
+  .page-home.is-ready .avatar{
+    animation: popIn var(--dur-3) var(--ease) 300ms both;
+  }
 }
 
 /* prefers-reduced-motion is recommended for accessibility */

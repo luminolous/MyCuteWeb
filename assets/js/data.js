@@ -4,7 +4,7 @@
 const siteConfig = {
   name: "Lumy",
   repoUrl: "https://github.com/luminolous",
-  blogHubUrl: "https://medium.com/@your-username", // tombol "View articles"
+  blogHubUrl: "https://medium.com/@luminolous", // tombol "View articles"
 };
 
 // Types for filter (Projects)
