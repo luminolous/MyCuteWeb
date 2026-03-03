@@ -1,1 +1,1 @@
-https://luminolous.site/
+Lumy has a website now (˶˃𐃷˂˶)
